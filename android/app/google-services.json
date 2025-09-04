@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "668863593165",
+    "project_id": "fir-getx-438ed",
+    "storage_bucket": "fir-getx-438ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668863593165:android:f8e21dcc935b257c980784",
+        "android_client_info": {
+          "package_name": "com.example.plantcare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6H7vsHxejyvarZlw4albyccWqnKjxffk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
