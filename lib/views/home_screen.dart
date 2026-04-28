@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
     // Initialize controllers
     final WeatherController weatherController = Get.put(WeatherController());
     final NewsController newsController = Get.put(NewsController());
-    final UserController userController = Get.put(UserController());
+    final UserController userController = Get.find<UserController>();
     
     return Scaffold(
       body: SafeArea(

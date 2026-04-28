@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class NewsController extends GetxController {
   // API Configuration
-  static const String _apiKey = 'ee5d604b47584f2a80d179a0a241e798';
+  final  String _apiKey = '${dotenv.env['NEWS_API_KEY']}';
   static const String _baseUrl = 'https://newsapi.org/v2';
 
   // Observable variables

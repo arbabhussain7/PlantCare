@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA6H7vsHxejyvarZlw4albyccWqnKjxffk"
+          "current_key": "${dotenv.env['GEMENI_KEY_ANDROID']}"
         }
       ],
       "services": {

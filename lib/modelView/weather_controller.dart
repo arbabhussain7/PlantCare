@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -6,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class WeatherController extends GetxController {
   // API Configuration
-  static const String _apiKey = 'b6922bda5ce84227b61153030252408';
+  final  String _apiKey = '${dotenv.env['WEATHER_API_KEY']}';
   static const String _baseUrl = 'https://api.weatherapi.com/v1';
 
   // Observable variables

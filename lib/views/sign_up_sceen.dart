@@ -5,8 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:plantcare/constant/assets.dart';
 import 'package:plantcare/constant/colors.dart';
-import 'package:plantcare/modelView/auth_controller%20.dart';
-import 'package:plantcare/modelView/user_controller.dart';
+import 'package:plantcare/modelView/auth_controller.dart';
 import 'package:plantcare/views/sign_in_screen.dart';
 import 'package:plantcare/widgets/custom_button.dart';
 import 'package:plantcare/widgets/custom_email_textfield.dart';
@@ -17,9 +16,7 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize UserController first to avoid dependency error
-    Get.put(UserController());
-    final AuthController authController = Get.put(AuthController());
+    final AuthController authController = Get.find<AuthController>();
     
     return Scaffold(
       body: SingleChildScrollView(

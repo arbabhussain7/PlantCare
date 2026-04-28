@@ -26,7 +26,7 @@ class UserController extends GetxController {
     getUser();
   }
 
-  void getUser() async {
+  Future<void> getUser() async {
     try {
       isLoading(true);
       if (auth.currentUser != null) {
@@ -36,11 +36,16 @@ class UserController extends GetxController {
             .get();
         print(usr.data());
         user(usr.data());
-        
+
         // Update text controllers with user data
         nameController.text = user['name'] ?? '';
         emailController.text = user['email'] ?? '';
         phoneController.text = user['phoneNumber'] ?? '';
+      } else {
+        user.clear();
+        nameController.clear();
+        emailController.clear();
+        phoneController.clear();
       }
     } catch (e) {
       print(e.toString());

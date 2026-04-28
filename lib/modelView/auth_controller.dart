@@ -14,30 +14,98 @@ class AuthController extends GetxController {
   var isLoading = false.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  
+
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController loginEmailController = TextEditingController();
   TextEditingController loginPasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  
-  UserController get userController => Get.put(UserController());
+
+  UserController get userController => Get.find<UserController>();
   var user = {}.obs;
+
+  /// Uses [ScaffoldMessenger] so feedback works even when GetX overlay is unavailable.
+  void _showMaterialSnack({
+    required String title,
+    required String message,
+    required Color backgroundColor,
+  }) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final ctx = Get.context ?? Get.overlayContext;
+      if (ctx == null || !ctx.mounted) {
+        debugPrint('[$title] $message');
+        return;
+      }
+      ScaffoldMessenger.of(ctx).clearSnackBars();
+      ScaffoldMessenger.of(ctx).showSnackBar(
+        SnackBar(
+          backgroundColor: backgroundColor,
+          behavior: SnackBarBehavior.floating,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: GoogleFonts.poppins(
+                  fontSize: 14.sp,
+                  color: whiteColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(height: 6.h),
+              Text(
+                message,
+                style: GoogleFonts.poppins(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w400,
+                  color: whiteColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+  void _showErrorSnackbar(String title, String message) {
+    _showMaterialSnack(
+      title: title,
+      message: message,
+      backgroundColor: Colors.red,
+    );
+  }
+
+  void _showSuccessSnackbar(String title, String message) {
+    _showMaterialSnack(
+      title: title,
+      message: message,
+      backgroundColor: greenColor,
+    );
+  }
+
+  void _showWarningSnackbar(String title, String message) {
+    _showMaterialSnack(
+      title: title,
+      message: message,
+      backgroundColor: Colors.orange,
+    );
+  }
 
   Future<void> createUser(String uid) async {
     int retryCount = 0;
     const maxRetries = 3;
-    
+
     while (retryCount < maxRetries) {
       try {
         print("Attempting to create user document (attempt ${retryCount + 1})...");
-        
-        // Initialize Firestore settings if needed
+
         if (retryCount == 0) {
           await _initializeFirestore();
         }
-        
+
         await firestore
             .collection("users")
             .doc(uid)
@@ -51,19 +119,17 @@ class AuthController extends GetxController {
               'createdAt': FieldValue.serverTimestamp(),
             })
             .timeout(const Duration(seconds: 15));
-        
+
         print("User document created successfully");
-        return; // Success, exit the retry loop
-        
+        return;
       } catch (e) {
         retryCount++;
         print("Error creating user document (attempt $retryCount): $e");
-        
+
         if (retryCount >= maxRetries) {
-          throw e; // Re-throw after max attempts
+          throw e;
         }
-        
-        // Wait before retrying
+
         await Future.delayed(Duration(seconds: retryCount * 2));
       }
     }
@@ -71,66 +137,79 @@ class AuthController extends GetxController {
 
   Future<void> _initializeFirestore() async {
     try {
-      // Enable offline persistence
-      // await firestore.enablePersistence();
       print("Firestore persistence enabled");
     } catch (e) {
       print("Firestore persistence already enabled or error: $e");
     }
   }
 
+  /// FlutterFire can throw a [PigeonUserDetails] cast error after a successful
+  /// native sign-in/sign-up. If [FirebaseAuth.currentUser] is set, we treat it as success.
+  Future<void> _createUserEmailPasswordOrRecover(String email, String password) async {
+    try {
+      await auth.createUserWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException {
+      rethrow;
+    } catch (e) {
+      if (auth.currentUser != null) {
+        debugPrint('Auth: recovered after registration deserialization issue: $e');
+        return;
+      }
+      rethrow;
+    }
+  }
+
+  Future<void> _signInEmailPasswordOrRecover(String email, String password) async {
+    try {
+      await auth.signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException {
+      rethrow;
+    } catch (e) {
+      if (auth.currentUser != null) {
+        debugPrint('Auth: recovered after sign-in deserialization issue: $e');
+        return;
+      }
+      rethrow;
+    }
+  }
+
   void register() async {
     try {
       isLoading(true);
-      
-      // Validate input first
+
       if (!_validateRegistrationInput()) {
         return;
       }
 
       print("Starting registration process...");
-      
-      // Create Firebase Auth user
-      var credentials = await auth.createUserWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
+
+      await _createUserEmailPasswordOrRecover(
+        emailController.text.trim(),
+        passwordController.text.trim(),
       );
-      
-      print("Firebase Auth user created: ${credentials.user!.uid}");
-      
-      // Try to create user document in Firestore
+
+      // Prefer currentUser to avoid pigeon/User deserialization issues on some firebase_auth builds.
+      final User? newUser = auth.currentUser;
+      if (newUser == null) {
+        throw StateError('Registration completed but no active user session.');
+      }
+
+      print("Firebase Auth user created: ${newUser.uid}");
+
       try {
-        await createUser(credentials.user!.uid);
+        await createUser(newUser.uid);
         print("User document created successfully");
       } catch (firestoreError) {
         print("Firestore error, but auth user created: $firestoreError");
-        // Show warning but continue with registration
-        Get.snackbar(
-          "Warning",
+        _showWarningSnackbar(
+          "Partial success",
           "Account created but profile sync failed. You can update your profile later.",
-          backgroundColor: Colors.orange,
-          snackPosition: SnackPosition.BOTTOM,
-          titleText: Text(
-            "Partial Success",
-            style: GoogleFonts.poppins(fontSize: 14.sp, color: whiteColor),
-          ),
-          messageText: Text(
-            "Account created but profile sync failed. You can update your profile later.",
-            style: GoogleFonts.poppins(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w400,
-              color: whiteColor,
-            ),
-          ),
         );
       }
-      
-      // Clear form fields
+
       _clearRegistrationFields();
-      
-      // Navigate to home
+
       Get.offAll(() => const HomeScreen());
-      
     } on FirebaseAuthException catch (e) {
       _handleFirebaseAuthError(e);
     } catch (e) {
@@ -143,25 +222,23 @@ class AuthController extends GetxController {
   void login() async {
     try {
       isLoading(true);
-      
+
       if (!_validateLoginInput()) {
         return;
       }
 
       print("Starting login process...");
-      
-      await auth.signInWithEmailAndPassword(
-        email: loginEmailController.text.trim(),
-        password: loginPasswordController.text.trim(),
+
+      await _signInEmailPasswordOrRecover(
+        loginEmailController.text.trim(),
+        loginPasswordController.text.trim(),
       );
-      
+
       print("Login successful");
-      
-      // Get user data after successful login
-      userController.getUser();
-      
+
+      await userController.getUser();
+
       Get.offAll(() => BottomNavigationBarScreen());
-      
     } on FirebaseAuthException catch (e) {
       _handleFirebaseAuthError(e);
     } catch (e) {
@@ -174,39 +251,17 @@ class AuthController extends GetxController {
   void logout() async {
     try {
       isLoading(true);
-      
-      // Sign out from Firebase
+
       await auth.signOut();
-      
-      // Clear user data
+
       user.clear();
-      
-      // Clear all text controllers
+      await userController.getUser();
+
       _clearAllControllers();
-      
-      // Show success message
-      Get.snackbar(
-        "Success",
-        "Logged out successfully",
-        backgroundColor: greenColor,
-        snackPosition: SnackPosition.BOTTOM,
-        titleText: Text(
-          "Success",
-          style: GoogleFonts.poppins(fontSize: 14.sp, color: whiteColor),
-        ),
-        messageText: Text(
-          "Logged out successfully",
-          style: GoogleFonts.poppins(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w400,
-            color: whiteColor,
-          ),
-        ),
-      );
-      
-      // Navigate to sign in screen
+
+      _showSuccessSnackbar("Success", "Logged out successfully");
+
       Get.offAll(() => const SignInScreen());
-      
     } catch (e) {
       _showErrorSnackbar("Logout Error", "Failed to logout. Please try again.");
       print("Error during logout: $e");
@@ -224,7 +279,6 @@ class AuthController extends GetxController {
     passwordController.clear();
   }
 
-  // Forgot Password functionality
   Future<void> forgotPassword(String email) async {
     try {
       if (email.trim().isEmpty) {
@@ -238,26 +292,11 @@ class AuthController extends GetxController {
       }
 
       await auth.sendPasswordResetEmail(email: email.trim());
-      
-      Get.snackbar(
+
+      _showSuccessSnackbar(
         "Success",
         "Password reset link sent to $email",
-        backgroundColor: greenColor,
-        snackPosition: SnackPosition.BOTTOM,
-        titleText: Text(
-          "Success",
-          style: GoogleFonts.poppins(fontSize: 14.sp, color: whiteColor),
-        ),
-        messageText: Text(
-          "Password reset link sent to $email",
-          style: GoogleFonts.poppins(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w400,
-            color: whiteColor,
-          ),
-        ),
       );
-      
     } on FirebaseAuthException catch (e) {
       _handleFirebaseAuthError(e);
     } catch (e) {
@@ -265,38 +304,37 @@ class AuthController extends GetxController {
     }
   }
 
-  // Validation methods
   bool _validateRegistrationInput() {
     if (usernameController.text.trim().isEmpty) {
       _showErrorSnackbar("Validation Error", "Please enter your name");
       return false;
     }
-    
+
     if (emailController.text.trim().isEmpty) {
       _showErrorSnackbar("Validation Error", "Please enter your email");
       return false;
     }
-    
+
     if (!GetUtils.isEmail(emailController.text.trim())) {
       _showErrorSnackbar("Validation Error", "Please enter a valid email");
       return false;
     }
-    
+
     if (phoneController.text.trim().isEmpty) {
       _showErrorSnackbar("Validation Error", "Please enter your phone number");
       return false;
     }
-    
+
     if (passwordController.text.trim().isEmpty) {
       _showErrorSnackbar("Validation Error", "Please enter your password");
       return false;
     }
-    
+
     if (passwordController.text.length < 6) {
       _showErrorSnackbar("Validation Error", "Password must be at least 6 characters");
       return false;
     }
-    
+
     return true;
   }
 
@@ -305,21 +343,20 @@ class AuthController extends GetxController {
       _showErrorSnackbar("Validation Error", "Please enter your email");
       return false;
     }
-    
+
     if (!GetUtils.isEmail(loginEmailController.text.trim())) {
       _showErrorSnackbar("Validation Error", "Please enter a valid email");
       return false;
     }
-    
+
     if (loginPasswordController.text.trim().isEmpty) {
       _showErrorSnackbar("Validation Error", "Please enter your password");
       return false;
     }
-    
+
     return true;
   }
 
-  // Error handling methods
   void _handleFirebaseAuthError(FirebaseAuthException e) {
     String errorMessage;
     switch (e.code) {
@@ -335,6 +372,11 @@ class AuthController extends GetxController {
       case 'wrong-password':
         errorMessage = 'Wrong password provided for that user.';
         break;
+      case 'invalid-credential':
+      case 'invalid-login-credentials':
+        errorMessage =
+            'Email or password is incorrect. If you just signed up, use the exact same email you registered with (check for typos).';
+        break;
       case 'invalid-email':
         errorMessage = 'The email address is invalid.';
         break;
@@ -347,7 +389,7 @@ class AuthController extends GetxController {
       default:
         errorMessage = 'Authentication failed: ${e.message}';
     }
-    
+
     _showErrorSnackbar("Authentication Error", errorMessage);
     print("FirebaseAuth Error: ${e.code} - ${e.message}");
   }
@@ -367,7 +409,7 @@ class AuthController extends GetxController {
       default:
         errorMessage = 'Database error: ${e.message}';
     }
-    
+
     _showErrorSnackbar("Database Error", errorMessage);
     print("Firestore Error: ${e.code} - ${e.message}");
   }
@@ -375,27 +417,6 @@ class AuthController extends GetxController {
   void _handleGenericError(dynamic e) {
     _showErrorSnackbar("Error", "Something went wrong. Please try again.");
     print("Generic Error: $e");
-  }
-
-  void _showErrorSnackbar(String title, String message) {
-    Get.snackbar(
-      title,
-      message,
-      backgroundColor: Colors.red,
-      snackPosition: SnackPosition.BOTTOM,
-      titleText: Text(
-        title,
-        style: GoogleFonts.poppins(fontSize: 14.sp, color: whiteColor),
-      ),
-      messageText: Text(
-        message,
-        style: GoogleFonts.poppins(
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w400,
-          color: whiteColor,
-        ),
-      ),
-    );
   }
 
   void _clearRegistrationFields() {
@@ -407,7 +428,6 @@ class AuthController extends GetxController {
 
   @override
   void onClose() {
-    // Dispose controllers
     usernameController.dispose();
     emailController.dispose();
     loginEmailController.dispose();

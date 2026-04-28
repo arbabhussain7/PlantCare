@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:plantcare/constant/assets.dart';
 import 'package:plantcare/constant/colors.dart';
-import 'package:plantcare/modelView/auth_controller%20.dart';
+import 'package:plantcare/modelView/auth_controller.dart';
 import 'package:plantcare/modelView/user_controller.dart'; // Add this import
 import 'package:plantcare/views/edit_profile_screen.dart';
 import 'package:plantcare/widgets/custom_profile_textField.dart';
@@ -13,8 +13,8 @@ import 'package:plantcare/widgets/custom_profile_textField.dart';
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
   
-  final AuthController authController = Get.put(AuthController());
-  final UserController userController = Get.put(UserController());
+  final AuthController authController = Get.find<AuthController>();
+  final UserController userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {

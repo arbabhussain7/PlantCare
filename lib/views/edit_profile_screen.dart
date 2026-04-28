@@ -20,7 +20,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final UserController userController = Get.put(UserController());
+  final UserController userController = Get.find<UserController>();
   final ImagePicker _picker = ImagePicker();
   File? _selectedImage;
   
