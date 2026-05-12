@@ -1,13 +1,6 @@
 # 🌱 PlantCare — AI-Powered Mango Plant Disease Detection App
+https://github.com/user-attachments/assets/7a2a282c-1e65-4f86-9c32-65471d915fc4
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Flutter-Mobile%20App-blue?style=for-the-badge&logo=flutter" />
-  <img src="https://img.shields.io/badge/GetX-State%20Management-purple?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/MVVM-Architecture-success?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Firebase-Backend-orange?style=for-the-badge&logo=firebase" />
-  <img src="https://img.shields.io/badge/AI-DenseNet-green?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Platform-Android%20%7C%20iOS-black?style=for-the-badge" />
-</p>
 
 # 📱 PlantCare
 
@@ -17,19 +10,19 @@ The application focuses on improving smart agriculture by enabling early disease
 
 ---
 
-# 🚀 Features
+## 🚀 Features
 
-✅ AI-based mango plant disease detection
-✅ Capture image using device camera
-✅ Upload image from gallery
-✅ DenseNet deep learning model integration
-✅ Real-time disease prediction
-✅ Weather forecasting using Weather API
-✅ Agricultural news & disease alerts
-✅ Firebase backend integration
-✅ GetX state management
-✅ MVVM architecture implementation
-✅ Clean and responsive UI
+✅ AI-based mango plant disease detection <br>
+✅ Capture image using device camera <br>
+✅ Upload image from gallery <br>
+✅ DenseNet deep learning model integration <br>
+✅ Real-time disease prediction <br>
+✅ Weather forecasting using Weather API <br>
+✅ Agricultural news & disease alerts <br>
+✅ Firebase backend integration <br>
+✅ GetX state management <br>
+✅ MVVM architecture implementation <br>
+✅ Clean and responsive UI <br>
 ✅ Cross-platform support (Android & iOS)
 
 ---
