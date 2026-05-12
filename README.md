@@ -1,5 +1,6 @@
 # 🌱 PlantCare — AI-Powered Mango Plant Disease Detection App
-<img src="https://github.com/user-attachments/assets/397c1e21-0a7c-41f7-b3e7-9272a6b4996f"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
+<img width="1376" height="768" alt="WhatsApp Image 2026-05-12 at 11 03 42 AM" src="https://github.com/user-attachments/assets/b4970374-56d4-41de-b2d8-5f915e2b9c8e" />
+
 <p>
 <img src="https://github.com/user-attachments/assets/8fb7a80d-1d49-44b2-9dce-40eed85b6be9" alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
 <img  src="https://github.com/user-attachments/assets/e2eba5e3-45eb-462c-bccf-6d4891bba386" alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
