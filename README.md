@@ -1,33 +1,33 @@
 # 🌱 PlantCare — AI-Powered Mango Plant Disease Detection App
-<img width="1376" height="666" alt="WhatsApp Image 2026-05-12 at 11 03 42 AM" src="https://github.com/user-attachments/assets/397c1e21-0a7c-41f7-b3e7-9272a6b4996f" />
+<img src="https://github.com/user-attachments/assets/397c1e21-0a7c-41f7-b3e7-9272a6b4996f"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
 <p>
-<img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 16 AM" src="https://github.com/user-attachments/assets/8fb7a80d-1d49-44b2-9dce-40eed85b6be9" />
-<img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 16 AM (1)" src="https://github.com/user-attachments/assets/e2eba5e3-45eb-462c-bccf-6d4891bba386" />
-<img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 15 AM" src="https://github.com/user-attachments/assets/3d7b0539-9d3e-414e-a24e-494c0819d675" />
-  <img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 13 AM" src="https://github.com/user-attachments/assets/aba0794a-aec6-4351-a605-4fd7eb1bd28d" />
+<img src="https://github.com/user-attachments/assets/8fb7a80d-1d49-44b2-9dce-40eed85b6be9" alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
+<img  src="https://github.com/user-attachments/assets/e2eba5e3-45eb-462c-bccf-6d4891bba386" alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
+<img src="https://github.com/user-attachments/assets/3d7b0539-9d3e-414e-a24e-494c0819d675" alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
+  <img  src="https://github.com/user-attachments/assets/aba0794a-aec6-4351-a605-4fd7eb1bd28d"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
 
 </p>
 <p> 
-<img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 15 AM" src="https://github.com/user-attachments/assets/09a7bcde-ec72-4402-98b6-b845fc6f47b4" />
-<img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 14 AM" src="https://github.com/user-attachments/assets/b09c458f-83fc-47d0-8e01-41052e24aa17" />
-<img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 13 AM" src="https://github.com/user-attachments/assets/83fa7eee-48ee-44d1-8c9d-dbccadadec2a" />
-<img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 11 AM" src="https://github.com/user-attachments/assets/2d5263c1-f3f9-4bf1-ae15-e0570aca6784" />
+<img src="https://github.com/user-attachments/assets/09a7bcde-ec72-4402-98b6-b845fc6f47b4"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
+<img src="https://github.com/user-attachments/assets/b09c458f-83fc-47d0-8e01-41052e24aa17"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
+<img  src="https://github.com/user-attachments/assets/83fa7eee-48ee-44d1-8c9d-dbccadadec2a"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
+<img src="https://github.com/user-attachments/assets/2d5263c1-f3f9-4bf1-ae15-e0570aca6784"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
  </p>
 
 
  <p>
-<img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 13 AM" src="https://github.com/user-attachments/assets/36be1676-5bee-4736-a8d1-9c10925423e0" />
-<img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 12 AM" src="https://github.com/user-attachments/assets/88224d92-beee-4650-aa4a-7bf049cb86d7" />
-<img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 12 AM (1)" src="https://github.com/user-attachments/assets/34a350f7-0ee1-4be1-954f-760af7689d6c" />
-<img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 11 AM" src="https://github.com/user-attachments/assets/3031cee7-3844-4517-9781-d20b66f448f4" />
+<img src="https://github.com/user-attachments/assets/36be1676-5bee-4736-a8d1-9c10925423e0"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
+<img src="https://github.com/user-attachments/assets/88224d92-beee-4650-aa4a-7bf049cb86d7"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
+<img  src="https://github.com/user-attachments/assets/34a350f7-0ee1-4be1-954f-760af7689d6c"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
+<img src="https://github.com/user-attachments/assets/3031cee7-3844-4517-9781-d20b66f448f4"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
  </p>
 <p>
 
 
 
-  <img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 10 AM (1)" src="https://github.com/user-attachments/assets/e5049065-4f02-49e4-aff2-4de09c4c9aae" />
-<img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 11 AM" src="https://github.com/user-attachments/assets/18167ba7-dfca-4e96-9eb1-4a400c07254e" />
-<img width="720" height="1600" alt="WhatsApp Image 2026-05-12 at 10 59 10 AM" src="https://github.com/user-attachments/assets/5509704c-3fad-4297-9a35-0f6c3e943881" />
+  <img  src="https://github.com/user-attachments/assets/e5049065-4f02-49e4-aff2-4de09c4c9aae"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
+<img  src="https://github.com/user-attachments/assets/18167ba7-dfca-4e96-9eb1-4a400c07254e"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
+<img  src="https://github.com/user-attachments/assets/5509704c-3fad-4297-9a35-0f6c3e943881"  alt="Image 1" style="margin-right: 10px; margin-bottom: 10px;" width="20%">
 
 
 </p>
